@@ -1,0 +1,21 @@
+{
+  "name": "order-ops-userscripts",
+  "version": "0.1.0",
+  "description": "Scraping engine for retail order histories",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "http-server -c-1 -p 8080",
+    "build": "node build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "dotenv": "^17.4.2",
+    "http-server": "^14.1.1"
+  }
+}
