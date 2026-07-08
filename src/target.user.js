@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         Target Receipt to JSON Parser (dev)
 // @namespace    http://tampermonkey.net/
-// @version      2026-07-07
+// @version      1.0.0
 // @description  Parses Target order receipts into JSON and sends to a webhook.
 // @author       OrderOps Agent
 // @match        https://*.target.com/orders/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=target.com
 // @grant        GM_setValue
 // @grant        GM_getValue
+// @grant        GM_registerMenuCommand
 // @grant        GM_setClipboard
 // @grant        GM_xmlhttpRequest
 // @connect      *
