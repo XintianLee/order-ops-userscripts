@@ -16,6 +16,17 @@ if (fs.existsSync(DIST_DIR)) {
 }
 fs.mkdirSync(DIST_DIR, { recursive: true });
 
+// --- AUTO-VERSION GENERATOR (YYYY.MM.DD.HHMM) ---
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth() + 1).padStart(2, '0');
+const day = String(now.getDate()).padStart(2, '0');
+const hours = String(now.getHours()).padStart(2, '0');
+const minutes = String(now.getMinutes()).padStart(2, '0');
+
+const AUTO_VERSION = `${year}.${month}.${day}.${hours}${minutes}`;
+console.log(`🏷️ Setting Global Version: ${AUTO_VERSION}`);
+
 // 2. Recursively process directories
 function buildDirectory(currentSrc, currentDist) {
     // Ensure the current destination directory exists
@@ -54,15 +65,17 @@ function compileUserScript(srcPath, distPath, filename) {
     if (!process.env.DEV_MODE)
         content = content.replace(/(@name\s+.*?)(\s*\(dev\))/gi, '$1');
 
-    // B. Strip out any existing @updateURL or @downloadURL lines to prevent duplicates
-    content = content.replace(/^\/\/ @updateURL.*$\n/gm, '');
-    content = content.replace(/^\/\/ @downloadURL.*$\n/gm, '');
+    // B. Strip out any existing @updateURL, @downloadURL and @version lines
+    content = content.replace(/^\/\/\s*@(version|(update|download)URL).*$\n/gm, '');
 
-    // C. Inject the fresh GitHub Pages URLs right before the closing tag
+    // C. Inject the new Auto-Version and URLs
     const fileUrl = `${BASE_URL}/${filename}`;
-    const urlInjection = `// @updateURL    ${fileUrl}\n// @downloadURL  ${fileUrl}\n// ==/UserScript==`;
+    const injectionBlock = `// @version      ${AUTO_VERSION}
+// @updateURL    ${fileUrl}
+// @downloadURL  ${fileUrl}
+// ==/UserScript==`;
     
-    content = content.replace(/\/\/\s*==\/UserScript==/i, urlInjection);
+    content = content.replace(/\/\/\s*==\/UserScript==/i, injectionBlock);
 
     // Save the new file
     fs.writeFileSync(distPath, content, 'utf8');
