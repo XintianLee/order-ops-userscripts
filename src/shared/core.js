@@ -45,7 +45,7 @@ window.OrderOps.registerScraper = function(config) {
 // Register the Settings Menu globally for all OrderOps scripts
 GM_registerMenuCommand("⚙️ Edit Webhook URL", () => {
     const currentUrl = GM_getValue("webhook_url", "");
-    const newUrl = prompt("Enter your Webhook URL:", currentUrl).trim();
+    const newUrl = prompt("Enter your Webhook URL:", currentUrl)?.trim();
 
     if (newUrl) {
         GM_setValue("webhook_url", newUrl);

@@ -25,7 +25,7 @@ const hours = String(now.getHours()).padStart(2, '0');
 const minutes = String(now.getMinutes()).padStart(2, '0');
 
 const AUTO_VERSION = `${year}.${month}.${day}.${hours}${minutes}`;
-console.log(`🏷️ Setting Global Version: ${AUTO_VERSION}`);
+console.log(`🏷️  Setting Global Version: ${AUTO_VERSION}`);
 
 // 2. Recursively process directories
 function buildDirectory(currentSrc, currentDist) {
